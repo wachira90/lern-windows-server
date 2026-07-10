@@ -30,4 +30,33 @@ Install-WindowsFeature Server-Media-Foundation, RSAT-ADDS
 * การติดตั้ง SSL Certificates เพื่อความปลอดภัยในการเชื่อมต่อ
 * การย้ายข้อมูลผู้ใช้จาก Exchange เวอร์ชันเก่า
 
+# Enable User
+
+หากต้องการเปิดใช้งานกล่องจดหมาย (Mailbox) บนระบบ Microsoft Exchange Server คุณต้องมีบัญชี Active Directory ของผู้ใช้รายนั้นก่อน จากนั้นจึงทำการกำหนดสิทธิ์กล่องจดหมาย โดยสามารถทำได้ 2 วิธีหลักๆ ดังนี้
+## วิธีที่ 1: ใช้ Exchange Management Shell (PowerShell)
+
+   1. เปิด Exchange Management Shell ด้วยสิทธิ์ผู้ดูแลระบบ (Administrator)
+   2. สำหรับผู้ใช้เดิมที่มีอยู่แล้ว ให้รันคำสั่ง:
+   Enable-Mailbox -Identity "Username" -Alias "useralias"
+   3. สำหรับสร้างผู้ใช้ใหม่พร้อมกล่องจดหมาย ให้รันคำสั่ง:
+   New-Mailbox -UserPrincipalName user@domain.com -Alias "useralias" -Database "Mailbox Database"
+
+## วิธีที่ 2: ใช้ Exchange Admin Center (EAC) ผ่านเว็บเบราว์เซอร์
+
+   1. เปิดเว็บเบราว์เซอร์แล้วไปที่ URL ของ Exchange Admin Center (เช่น https://ชื่อเซิร์ฟเวอร์ของคุณ/ecp)
+   2. เข้าสู่ระบบด้วยบัญชีผู้ดูแลระบบ (Administrator)
+   3. ไปที่เมนูด้านซ้าย คลิก recipients (ผู้รับ) แล้วเลือก mailboxes (กล่องจดหมาย)
+   4. คลิกไอคอน + (บวก) แล้วเลือก User mailbox
+   5. เลือก Existing user (หากผู้ใช้มีบัญชี Active Directory อยู่แล้ว) หรือเลือก New user (หากต้องการสร้างใหม่)
+   6. กรอกข้อมูลให้ครบถ้วนแล้วคลิก Save (บันทึก)
+
+หลังจากเปิดใช้งานกล่องจดหมายแล้ว อย่าลืมตรวจสอบการตั้งค่า DNS records ภายนอก (เช่น MX Record และ Autodiscover) ให้ชี้มาที่ Public IP ของ Exchange Server เพื่อให้ระบบอีเมลภายนอกสามารถส่งข้อมูลหาคุณได้ถูกต้อง
+หากต้องการให้แนะนำขั้นตอนอย่างเจาะจง สามารถบอกข้อมูลเพิ่มเติมได้:
+
+* คุณกำลังใช้ Exchange Server (ติดตั้งในองค์กร) หรือ Exchange Online (Microsoft 365)?
+* คุณกำลังตั้งค่าให้ ผู้ใช้ใหม่ หรือ ผู้ใช้เดิมที่มีบัญชีอยู่แล้ว?
+* พบปัญหาเกี่ยวกับ การรับส่งเมลภายใน หรือ การเชื่อมต่อจากภายนอก (DNS)?
+
+ผมสามารถให้คำสั่งหรือขั้นตอนที่ละเอียดตรงกับหน้างานของคุณได้ทันที
+
 
