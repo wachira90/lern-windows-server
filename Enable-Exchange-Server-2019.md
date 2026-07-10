@@ -7,7 +7,11 @@
 ## 2. ติดตั้งโปรแกรมจำเป็น (Prerequisites)
 Exchange จำเป็นต้องใช้ฟีเจอร์บางอย่างของ Windows เช่น .NET Framework และ Internet Information Services (IIS)
 ให้เปิด Windows PowerShell ด้วยสิทธิ์ผู้ดูแลระบบ (Run as Administrator) แล้วรันคำสั่งนี้เพื่อติดตั้งฟีเจอร์ที่จำเป็น:
+
+```powershell
 Install-WindowsFeature Server-Media-Foundation, RSAT-ADDS
+```
+
 ## 3. เมานต์ไฟล์และติดตั้ง Exchange
 
    1. คลิกขวาที่ไฟล์ ISO ของ Exchange Server 2019 ที่คุณดาวน์โหลดมา แล้วเลือก Mount
